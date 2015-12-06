@@ -122,11 +122,12 @@ function canvasButtonDemo(el)
   var div_hdr=$(document.createElement('div'));
   var div_btn=$(document.createElement('div'));
   el.append(div_hdr).append(div_btn);
-  div_hdr.html("Canvas Button demo<br>");
+  div_hdr.html("Canvas Button demo");
   var div_left=$(document.createElement('div'));
   var div_right=$(document.createElement('div'));
   var div_up=$(document.createElement('div'));
   var div_down=$(document.createElement('div'));
+  div_btn.height('100px');
   div_left.css("float","left");
   div_left.css("width","0");
   div_right.css("float","left");
@@ -137,11 +138,10 @@ function canvasButtonDemo(el)
   div_down.css("width","0");
   div_btn.append(div_left).append(div_up);
   div_btn.append(div_down).append(div_right);
-  var cb_left=new CanvasButton(div_left,"arrow.left");
-  var cb_up=new CanvasButton(div_up,"arrow.up");
-  var cb_down=new CanvasButton(div_down,"arrow.down");
-  var cb_right=new CanvasButton(div_right,"arrow.right");
-  el.append("<br><br>");
+  var cb_left=new CanvasButton(div_left,"triangle.left");
+  var cb_up=new CanvasButton(div_up,"triangle.up");
+  var cb_down=new CanvasButton(div_down,"triangle.down");
+  var cb_right=new CanvasButton(div_right,"triangle.right");
 
   // Handle button clicks
   $(cb_left).click(function() {
@@ -158,8 +158,26 @@ function canvasButtonDemo(el)
   });
 }
 
+function coordSpinnerDemo(el)
+{
+  // Create layout for buttons
+  var div_hdr=$(document.createElement('div'));
+  var div_val=$(document.createElement('div'));
+  var div_csp=$(document.createElement('div'));
+  el.append(div_hdr).append(div_val).append(div_csp);
+  div_hdr.html("Coordinate Spinner demo");
+  div_csp.width(200);
+  var csp=new CoordSpinner(div_csp);
+
+  // Handle changed event
+  $(csp).on('changed', function(e,x,y) {
+    div_val.text('('+x+','+y+')');
+  });
+}
+
 $(document).ready(function(){
   spinnerDemo($("#spinner_demo"));
   gridLayoutDemo($("#grid_layout_demo"));
   canvasButtonDemo($("#canvas_button_demo"));
+  coordSpinnerDemo($("#coord_spinner_demo"));
 });

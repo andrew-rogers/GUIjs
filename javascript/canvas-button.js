@@ -69,8 +69,59 @@ CanvasButton.prototype.drawButton=function(type){
   type=type.split('.');
   var dir=type[1];
   type=type[0];
-  
+
   if(type=='arrow'){
+    // Draw circle     
+    context.beginPath();
+    context.arc(0, 0, 0.375, 0, 2 * Math.PI, false);
+    context.lineWidth = 5;
+    context.fillStyle = "#CEF";
+    context.fill();// Draw triangle
+    context.beginPath();
+
+    // Draw arrow
+    switch(dir){
+      case 'down':
+        context.moveTo(0.05,-0.3);
+        context.lineTo(0.05,0.125);
+        context.lineTo(0.175,0.125);
+        context.lineTo(0,0.3);
+        context.lineTo(-0.175,0.125);
+        context.lineTo(-0.05,0.125);
+        context.lineTo(-0.05,-0.3);
+        break;
+      case 'up':
+        context.moveTo(0.05,0.3);
+        context.lineTo(0.05,-0.125);
+        context.lineTo(0.175,-0.125);
+        context.lineTo(0,-0.3);
+        context.lineTo(-0.175,-0.125);
+        context.lineTo(-0.05,-0.125);
+        context.lineTo(-0.05,0.3);
+        break;
+      case 'left':
+	context.moveTo(0.3,0.05);
+	context.lineTo(-0.125,0.05);
+        context.lineTo(-0.125,0.175);
+        context.lineTo(-0.3,0);
+        context.lineTo(-0.125,-0.175);
+        context.lineTo(-0.125,-0.05);
+        context.lineTo(0.3,-0.05);
+        break;
+      case 'right':
+        context.moveTo(-0.3,0.05);
+	context.lineTo(0.125,0.05);
+        context.lineTo(0.125,0.175);
+        context.lineTo(0.3,0);
+        context.lineTo(0.125,-0.175);
+        context.lineTo(0.125,-0.05);
+        context.lineTo(-0.3,-0.05);
+    }
+    context.fillStyle="#358";
+    context.fill();
+  }
+  
+  if(type=='triangle'){
     // Draw circle     
     context.beginPath();
     context.arc(0, 0, 0.375, 0, 2 * Math.PI, false);
@@ -78,7 +129,7 @@ CanvasButton.prototype.drawButton=function(type){
     context.fillStyle = "#CEF";
     context.fill();   
 
-    // Draw arrow
+    // Draw triangle
     context.beginPath();
     switch(dir){
       case 'down':
