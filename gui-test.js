@@ -102,17 +102,64 @@ function spinnerDemo(el)
 function gridLayoutDemo(el)
 {
   // Create page layout for grid layout
-  el.html("GridLayout demo");
-  el.width(200);
-  el.height(200);
-  var gl=new GridLayout(el,3,3);
+  var div_hdr=$(document.createElement('div'));
+  var div_gl=$(document.createElement('div'));
+  el.append(div_hdr).append(div_gl);
+  div_hdr.html("GridLayout demo");
+  div_gl.width(200);
+  div_gl.height(200);
+  var gl=new GridLayout(div_gl,3,3);
   gl.chequer();
   var centre=gl.cells[1][1];
   var glc=new GridLayout(centre,3,3);
   glc.chequer('black','red');
+  el.append("<br><br>");
+}
+
+function canvasButtonDemo(el)
+{
+  // Create layout for buttons
+  var div_hdr=$(document.createElement('div'));
+  var div_btn=$(document.createElement('div'));
+  el.append(div_hdr).append(div_btn);
+  div_hdr.html("Canvas Button demo<br>");
+  var div_left=$(document.createElement('div'));
+  var div_right=$(document.createElement('div'));
+  var div_up=$(document.createElement('div'));
+  var div_down=$(document.createElement('div'));
+  div_left.css("float","left");
+  div_left.css("width","0");
+  div_right.css("float","left");
+  div_right.css("width","0");
+  div_up.css("float","left");
+  div_up.css("width","0");
+  div_down.css("float","left");
+  div_down.css("width","0");
+  div_btn.append(div_left).append(div_up);
+  div_btn.append(div_down).append(div_right);
+  var cb_left=new CanvasButton(div_left,"arrow.left");
+  var cb_up=new CanvasButton(div_up,"arrow.up");
+  var cb_down=new CanvasButton(div_down,"arrow.down");
+  var cb_right=new CanvasButton(div_right,"arrow.right");
+  el.append("<br><br>");
+
+  // Handle button clicks
+  $(cb_left).click(function() {
+    alert("Left clicked");
+  });
+  $(cb_right).click(function() {
+    alert("Right clicked");
+  });
+  $(cb_up).click(function() {
+    alert("Up clicked");
+  });
+  $(cb_down).click(function() {
+    alert("Down clicked");
+  });
 }
 
 $(document).ready(function(){
   spinnerDemo($("#spinner_demo"));
   gridLayoutDemo($("#grid_layout_demo"));
+  canvasButtonDemo($("#canvas_button_demo"));
 });

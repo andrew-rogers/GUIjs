@@ -31,6 +31,7 @@
  */
 
 var GridLayout=function(el,row_heights,col_widths) {
+  el.html('');
   this.el=el;
 
   var row_heights=this._processSizeArray(row_heights);
