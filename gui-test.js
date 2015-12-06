@@ -54,13 +54,17 @@ var VPSpinner = function(el,ap) {
   $(butt_cl).html('<');
   $(butt_cr).html('>');
 
+  var jq=$(this); // This widget as jQuery object
+
   $(butt_inc).click(function() {
-    spin.adj(1);
+    var val=spin.adj(1);
+    jq.trigger("changed",[val]);
     $(span_val).html(spin.getText());
   });
   
   $(butt_dec).click(function() {
-    spin.adj(-1);
+    var val=spin.adj(-1);
+    jq.trigger("changed",[val]);
     $(span_val).html(spin.getText());
   });
   
@@ -78,8 +82,17 @@ var VPSpinner = function(el,ap) {
 };
 
 $(document).ready(function(){
-  var el=$("#spinner");
-  el.html('');
-  var vpspin=new VPSpinner(el,-5);
+  var el=$("#spinner_demo");
   
+  // Create page layout
+  var div_val=document.createElement('div');
+  var div_spin=document.createElement('div');
+  $(div_spin).css("background-color","#88f");
+  el.html(div_val).append(div_spin);
+  var vpspin=new VPSpinner($(div_spin),-5);
+
+  // Event handlers
+  $(vpspin).on("changed", function(e,val) {
+    $(div_val).html(''+val);
+  });
 });
