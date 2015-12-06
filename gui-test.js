@@ -81,18 +81,38 @@ var VPSpinner = function(el,ap) {
   });
 };
 
-$(document).ready(function(){
-  var el=$("#spinner_demo");
-  
-  // Create page layout
+function spinnerDemo(el)
+{
+  // Create page layout for simple spinner
+  el.html("Variable Precision Spinner demo");
   var div_val=document.createElement('div');
   var div_spin=document.createElement('div');
+  $(div_spin).css("float","left");
   $(div_spin).css("background-color","#88f");
-  el.html(div_val).append(div_spin);
+  el.append(div_val).append(div_spin);
   var vpspin=new VPSpinner($(div_spin),-5);
+  el.append("<br><br>");
 
   // Event handlers
   $(vpspin).on("changed", function(e,val) {
     $(div_val).html(''+val);
   });
+}
+
+function gridLayoutDemo(el)
+{
+  // Create page layout for grid layout
+  el.html("GridLayout demo");
+  el.width(200);
+  el.height(200);
+  var gl=new GridLayout(el,3,3);
+  gl.chequer();
+  var centre=gl.cells[1][1];
+  var glc=new GridLayout(centre,3,3);
+  glc.chequer('black','red');
+}
+
+$(document).ready(function(){
+  spinnerDemo($("#spinner_demo"));
+  gridLayoutDemo($("#grid_layout_demo"));
 });
