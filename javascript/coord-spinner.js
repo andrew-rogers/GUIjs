@@ -56,9 +56,19 @@ var CoordSpinner=function(el,dp) {
   var cb_cleft=new CanvasButton(gl.cells[2][0],'arrow.left');
   var cb_cright=new CanvasButton(gl.cells[2][2],'arrow.right');
 
-  // Add the spinners
+  // Add the x spinner
   var spin_x=new VariablePosSpinText(dp);
+  this.span_label_x=$(document.createElement('span'));
+  this.span_x=$(document.createElement('span'));
+  glt.cells[0][0].css('font-family','monospace');
+  glt.cells[0][0].html(this.span_label_x).append(this.span_x);
+
+  // Add the y spinner
   var spin_y=new VariablePosSpinText(dp);
+  this.span_label_y=$(document.createElement('span'));
+  this.span_y=$(document.createElement('span'));
+  glt.cells[1][0].css('font-family','monospace');
+  glt.cells[1][0].html(this.span_label_y).append(this.span_y);
 
   var jq=$(this);
   var that=this;
@@ -69,22 +79,22 @@ var CoordSpinner=function(el,dp) {
   $(cb_left).click( function() {
     val_x=spin_x.adj(-1);
     jq.trigger("changed",[val_x,val_y]);
-    that._update_x();
+    that.span_x.html(spin_x.getText());
   });
   $(cb_right).click( function() {
     val_x=spin_x.adj(1);
     jq.trigger("changed",[val_x,val_y]);
-    that._update_x();
+    that.span_x.html(spin_x.getText());
   });
   $(cb_up).click( function() {
     val_y=spin_y.adj(1);
     jq.trigger("changed",[val_x,val_y]);
-    that._update_y();
+    that.span_y.html(spin_y.getText());
   });
   $(cb_down).click( function() {
     val_y=spin_y.adj(-1);
     jq.trigger("changed",[val_x,val_y]);
-    that._update_y();
+    that.span_y.html(spin_y.getText());
   });
   $(cb_cleft).click(function() {
     that.setAdjPos(that.adj_pos+1);
@@ -93,32 +103,31 @@ var CoordSpinner=function(el,dp) {
     that.setAdjPos(that.adj_pos-1);
   });
 
-  this.div_spin_x=glt.cells[0][0];
-  this.div_spin_y=glt.cells[1][0];
   this.spin_x=spin_x;
   this.spin_y=spin_y;
-  this.label_x='x: ';
-  this.label_y='y: ';
 
   this.setAdjPos(-dp);
+  this.setLabels("x: ","y: ");
+  this.setValue(val_x,val_y);
 };
 
 
 CoordSpinner.prototype.setValue=function(x,y) {
+  this.spin_x.value=x;
+  this.spin_y.value=y;
+  this.span_x.html(this.spin_x.getText());
+  this.span_y.html(this.spin_y.getText());
 };
 
 CoordSpinner.prototype.setAdjPos=function(ap) {
   this.adj_pos=ap;
   this.spin_x.setAdjPos(ap);
   this.spin_y.setAdjPos(ap);
-  this._update_x();
-  this._update_y();
+  this.span_x.html(this.spin_x.getText());
+  this.span_y.html(this.spin_y.getText());
 };
 
-CoordSpinner.prototype._update_x=function() {
-  this.div_spin_x.html('<code>'+this.label_x+this.spin_x.getText()+'</code>');
-};
-
-CoordSpinner.prototype._update_y=function() {
-  this.div_spin_y.html('<code>'+this.label_y+this.spin_y.getText()+'</code>');
+CoordSpinner.prototype.setLabels=function(xt,yt) {
+  this.span_label_x.html(xt);
+  this.span_label_y.html(yt);
 };
