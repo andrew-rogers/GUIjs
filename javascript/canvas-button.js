@@ -68,6 +68,7 @@ CanvasButton.prototype.drawButton=function(type){
 
   type=type.split('.');
   var dir=type[1];
+  var subtype=type[1];
   type=type[0];
 
   if(type=='arrow'){
@@ -154,5 +155,23 @@ CanvasButton.prototype.drawButton=function(type){
     }
     context.fillStyle="#358";
     context.fill();
+  }
+
+  if(type=='control' && subtype=='delete'){
+    // Draw circle     
+    context.beginPath();
+    context.arc(0, 0, 0.375, 0, 2 * Math.PI, false);
+    context.lineWidth = 0.1;
+    context.fillStyle = "#f00";
+    context.fill();   
+
+    // Draw X
+    context.beginPath();
+    context.moveTo(-0.15,-0.15);
+    context.lineTo(0.15,0.15);
+    context.moveTo(-0.15,0.15);
+    context.lineTo(0.15,-0.15);
+    context.strokeStyle="#ccc";
+    context.stroke();
   }
 };
