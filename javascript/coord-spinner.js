@@ -72,28 +72,28 @@ var CoordSpinner=function(el,dp) {
 
   var jq=$(this);
   var that=this;
-  var val_x=0;
-  var val_y=0;
+  this.val_x=0;
+  this.val_y=0;
   
   // Handle button clicks
   $(cb_left).click( function() {
-    val_x=spin_x.adj(-1);
-    jq.trigger("changed",[val_x,val_y]);
+    that.val_x=spin_x.adj(-1);
+    jq.trigger("changed",[that.val_x,that.val_y]);
     that.span_x.html(spin_x.getText());
   });
   $(cb_right).click( function() {
-    val_x=spin_x.adj(1);
-    jq.trigger("changed",[val_x,val_y]);
+    that.val_x=spin_x.adj(1);
+    jq.trigger("changed",[that.val_x,that.val_y]);
     that.span_x.html(spin_x.getText());
   });
   $(cb_up).click( function() {
-    val_y=spin_y.adj(1);
-    jq.trigger("changed",[val_x,val_y]);
+    that.val_y=spin_y.adj(1);
+    jq.trigger("changed",[that.val_x,that.val_y]);
     that.span_y.html(spin_y.getText());
   });
   $(cb_down).click( function() {
-    val_y=spin_y.adj(-1);
-    jq.trigger("changed",[val_x,val_y]);
+    that.val_y=spin_y.adj(-1);
+    jq.trigger("changed",[that.val_x,that.val_y]);
     that.span_y.html(spin_y.getText());
   });
   $(cb_cleft).click(function() {
@@ -108,11 +108,13 @@ var CoordSpinner=function(el,dp) {
 
   this.setAdjPos(-dp);
   this.setLabels("x: ","y: ");
-  this.setValue(val_x,val_y);
+  this.setValue(this.val_x,this.val_y);
 };
 
 
 CoordSpinner.prototype.setValue=function(x,y) {
+  this.val_x=x;
+  this.val_y=y;
   this.spin_x.value=x;
   this.spin_y.value=y;
   this.span_x.html(this.spin_x.getText());
